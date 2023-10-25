@@ -1,0 +1,59 @@
+---
+title: "interactivity"
+format: html
+editor: visual
+---
+
+## [Access the slides, code, and other materials at the course website](https://datavizm20.classes.andrewheiss.com/content/10-content/)
+
+## [Slides](https://datavizm20.classes.andrewheiss.com/slides/10-slides.html#1)
+
+```{r}
+library(tidyverse)
+library(plotly)
+library(gapminder)
+```
+
+```{r}
+plot <- gapminder |> 
+  filter(year == 2007) |> 
+  ggplot(aes(
+    x = gdpPercap, 
+    y = lifeExp, 
+    color = continent)) + 
+   geom_point(aes(text = country)) +
+  scale_x_log10() + 
+  theme_minimal() 
+
+plot
+```
+
+```{r}
+ interactive_plot <-  ggplotly(plot, tooltip =  c("x", "y", "text"))
+```
+
+```         
+```
+
+```{r}
+car_hist <- ggplot(
+  mpg, aes(x = hwy)
+) + 
+  geom_histogram(binwidth = 2, boundary = 0, color = 
+                   "white")
+
+ggplotly(car_hist)
+```
+
+# Save as HTML
+
+save a self-contained HTML version of it with **saveWidget()** in the **htmlwidgets** R package.
+
+```{r}
+# This is like ggsave, but for interactive HTML plots
+htmlwidgets::saveWidget(interactive_plot, 'fancy_plot.html')
+```
+
+## Flexdabhoard
+
+## Shiny and Shiny Dashboard
